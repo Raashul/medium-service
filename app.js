@@ -18,7 +18,8 @@ app.get('/', (req, res) => {
   res.send('<h2> Hello from server. Welcome to the medium client api');
 })
 
-
-app.listen(3003, () => {
+// For heroku declaring a port number 
+const PORT = process.env.PORT || 3003
+app.listen(PORT, () => {
   console.log('starting app in port 3003');
 })
