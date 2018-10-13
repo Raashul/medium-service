@@ -34,3 +34,27 @@ module.exports.checkIfUserExists = (request_id, data) => {
     }
   })
 }
+
+module.exports.insertIntoUsersTable = (request_id, body) => {
+  return new Promise( async (resolve, reject) => {
+    const queryString = 'INSERT INTO users SET ?;';
+    const queryBody = {
+      id: 10,
+      email: 'rashul1996@gmail.com'
+    }
+    try{
+      let result = await mysql.query(queryString, [queryBody]);
+      console.log(result);
+      if(result[1].affectedRows == 1){
+        resolve(queryBody.email);
+        console.log('added user with email ', queryBody.email);
+      }
+      else {
+        reject({ code: 103.4, message: 'Failure to insert.' })
+      }
+    } catch (e) {
+      reject({ code: 102, message: { message: e.message, stack: e.stack } });
+    }
+    
+  })
+}

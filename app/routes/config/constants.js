@@ -2,7 +2,8 @@
 
 const routes = {
   profile: '/api/profile',
-  signup: '/api/signup'
+  signup: '/api/signup',
+  login: '/api/login'
 }
 
 module.exports = routes;
