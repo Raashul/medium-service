@@ -1,7 +1,8 @@
 'use strict'
 
 const routes = {
-  profile: 'api/profile'
+  profile: '/api/profile',
+  signup: '/api/signup'
 }
 
 module.exports = routes;

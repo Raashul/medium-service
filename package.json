@@ -9,8 +9,14 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "body-parser": "^1.18.3",
+    "cuid": "^2.1.4",
+    "dotenv": "^6.1.0",
     "express": "^4.16.3",
     "morgan": "^1.9.1",
-    "nodemon": "^1.18.4"
+    "mysql": "^2.16.0",
+    "nodemon": "^1.18.4",
+    "uuid": "^3.3.2",
+    "uuid-v4": "^0.1.0"
   }
 }
