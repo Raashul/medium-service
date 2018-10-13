@@ -28,6 +28,7 @@ app.get('/user/:id', (req, res) => {
   connection.query("SELECT * FROM users", (err, rows, fields)=>{
     if (err) {
       console.log(`Got an error of ${err}`)
+      res.send(`The error is ${err}`)
     }
     console.log("Fetched the user sucessfully.")
     res.json(rows)
