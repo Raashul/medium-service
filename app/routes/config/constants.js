@@ -3,7 +3,8 @@
 const routes = {
   profile: '/api/profile',
   signup: '/api/signup',
-  login: '/api/login'
+  login: '/api/login',
+  home: '/api/home'
 }
 
 module.exports = routes;

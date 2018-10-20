@@ -15,7 +15,8 @@ exports = module.exports = (app) => {
     // .post(profile.addInfo)
     // .put(profile.editInfo)
 
-  
+  app.route(route.home)
+    .get((req, res) => res.send("test success"))
 
 }
 
