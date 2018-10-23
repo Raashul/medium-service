@@ -2,7 +2,7 @@
 
 module.exports = {
   app: {
-    port: process.env.port || 3001,
+    port: process.env.PORT || 3001,
     environment: process.env.environment || 'local'
   },
   mysql : {
