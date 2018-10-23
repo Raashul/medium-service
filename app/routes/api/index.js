@@ -18,7 +18,8 @@ exports = module.exports = (app) => {
     // .post(profile.addInfo)
     // .put(profile.editInfo)
 
-  
+  app.route(route.home)
+    .get((req, res) => res.send("test success"))
 
   app.route(route.home) //anything with api/home goes here.
     .get(home.test)
