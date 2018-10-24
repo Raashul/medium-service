@@ -44,6 +44,7 @@ app.get('/', (req, res) => {
 app.get('/auth/google', passport.authenticate('google', {
   scope: ['https://www.googleapis.com/auth/userinfo.profile']
 }));
+
 app.get('/auth/google/callback',
   passport.authenticate('google', {
       failureRedirect: '/'
@@ -51,7 +52,7 @@ app.get('/auth/google/callback',
   (req, res) => {
     console.log('sucess');
     res.send('Success login');
-    
+
   }
 );
 

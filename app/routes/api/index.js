@@ -3,6 +3,7 @@
 const route = require(__base + '/app/routes/config/constants');
 const profile = require(__base + '/app/handlers/profile');
 const registration = require(__base + '/app/handlers/registration');
+const  passport = require('passport');
 
 exports = module.exports = (app) => {
 
@@ -17,6 +18,23 @@ exports = module.exports = (app) => {
 
   app.route(route.home)
     .get((req, res) => res.send("test success"))
+
+  app.get('/auth/google', passport.authenticate('google', {
+    scope : ['profile', 'email'] 
+  }));
+  
+  app.get('/auth/google/callback',
+    passport.authenticate('google', {
+        failureRedirect: '/'
+    }),
+    (req, res) => {
+      console.log('user here', req.user);
+      console.log('sucess');
+      res.send('Success login');
+  
+    }
+  );
+    
 
 }
 

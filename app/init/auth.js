@@ -15,6 +15,8 @@ module.exports = (passport) => {
     callbackURL: config.passport.callbackURL,
   },
     (token, refreshToken, profile, done) => {
+      // console.log('token', token);
+      // console.log('profile', profile);
       return done(null, {
           profile: profile,
           token: token
