@@ -41,21 +41,6 @@ app.get('/', (req, res) => {
 // })
 
 
-app.get('/auth/google', passport.authenticate('google', {
-  scope: ['https://www.googleapis.com/auth/userinfo.profile']
-}));
-
-app.get('/auth/google/callback',
-  passport.authenticate('google', {
-      failureRedirect: '/'
-  }),
-  (req, res) => {
-    console.log('sucess');
-    res.send('Success login');
-
-  }
-);
-
 // start listening to port
 const server = app.listen(config.app.port, () => {
   console.log(`Node app started at: ${server.address().port}.`);

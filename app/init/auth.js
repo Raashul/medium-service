@@ -1,5 +1,6 @@
 const GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 const config = require(__base + '/app/config/config');
+const  passport = require('passport');
 
 
 module.exports = (passport) => {
@@ -15,11 +16,24 @@ module.exports = (passport) => {
     callbackURL: config.passport.callbackURL,
   },
     (token, refreshToken, profile, done) => {
-      // console.log('token', token);
-      // console.log('profile', profile);
+      
       return done(null, {
           profile: profile,
           token: token
       });
   }));
 };
+
+module.exports.signUp = () => {
+  passport.authenticate('google', {
+    failureRedirect: '/'
+  }),
+  (req, res) => {
+    //check db goes here
+    console.log('req is authenticated', req.isAuthenticated());
+    //console.log('user here', req.user);
+    console.log('sucess');
+    res.send('Success login');
+
+  }
+}
