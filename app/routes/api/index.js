@@ -12,24 +12,26 @@ const authorization = require(__base + '/app/routes/config/authorization');
 exports = module.exports = (app) => {
 
   //registration
-  app.post(route.signup, registration.signup);
-  app.post(route.login, registration.login);
+  // app.post(route.signup, registration.signup);
+  // app.post(route.login, registration.login);
 
+  // google registration
   app.get(route.googleSignUp, passport.authenticate('google', {
     scope : ['profile', 'email'] 
   }));
   
   app.get(route.googleCallback, passport.authenticate('google', {failureRedirect: '/'}), registration.googleSignUp)
 
+  //profile route
   app.route(route.profile)
     .get(authorization.authCheck, profile.getInfo)
-    // .post(profile.addInfo)
-    // .put(profile.editInfo)
 
+  //home route
   app.route(route.home)
     .get((req, res) => res.send("test success"))
 
 
+  //test
   app.get('/api/test', authorization.authCheck, (req,res) => res.send('success'))
     
 
