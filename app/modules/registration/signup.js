@@ -1,10 +1,13 @@
 'use strict';
 
+const jwt = require('jsonwebtoken');
+
 const mysql = require(__base + '/app/modules/common/mysql');
+const config = require(__base + '/app/config/config');
 
 module.exports.init = (request_id, data) => {
   return new Promise((resolve, reject) => {
-    console.log(data);
+
     //TODO: determine what data is needed
     if(data.email){
       resolve();
@@ -21,14 +24,14 @@ module.exports.checkIfUserExists = (request_id, data) => {
     const queryString = "SELECT email FROM users WHERE email = ?;";
     try{
       let result = await mysql.query(queryString, [data.email]);
-      console.log('result length', result.length);
       if(result.length == 0){
-        resolve();
+        resolve(false);
       }
       else{
-        reject({code: 103.4, message: 'User with same email exists already'})
+        resolve(true);
       }
     } catch(e){
+      console.log(e.message);
       reject({ code: 102, message: e.message });
 
     }
@@ -56,5 +59,27 @@ module.exports.insertIntoUsersTable = (request_id, body) => {
       reject({ code: 102, message: { message: e.message, stack: e.stack } });
     }
     
+  })
+}
+
+
+//generate jwt token
+module.exports.generateToken = async (request_id, result) => {
+  return new Promise (async (resolve, reject) => {
+    try {
+      let payload = {
+        id: result.id,
+        first_name: result.first_name,
+        last_name: result.last_name,
+        email: result.email
+      }
+      console.log('generating token');
+
+      let token = await jwt.sign(payload, config.jwt.cert);
+      resolve(token);
+
+    } catch(e){
+      reject({ code: 102, message: { message: e.message } });
+    }
   })
 }

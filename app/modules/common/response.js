@@ -54,6 +54,7 @@ module.exports.failure = (request_id, error, res) => {
       internalError(request_id, error, res);
     }
   } catch(e){
+    console.log('goto internal error');
     internalError(request_id, error, res);
 
   }
@@ -78,6 +79,7 @@ let responseBody = (request_id, http_code, internal_code, message, body) => {
 
 
 let internalError = (request_id, e, res) => {
+  console.log('sending res status');
   res.status(500).send({
     error: {
       http_code: 500,

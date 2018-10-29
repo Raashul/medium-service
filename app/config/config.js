@@ -16,5 +16,9 @@ module.exports = {
     clientID : process.env.PASSPORT_CLIENT_ID,
     clientSecret: process.env.PASSPORT_CLIENT_SECRET,
     callbackURL : process.env.PASSPORT_CALLBACK_URL
+  },
+
+  jwt : {
+    cert: process.env.JWT_TOKEN_CERT
   }
 }
