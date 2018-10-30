@@ -6,8 +6,8 @@ const routes = {
   login: '/api/login',
   home: '/api/home',
   googleSignUp: '/auth/google',
-  googleCallback: '/auth/google/callback'
-  
+  googleCallback: '/auth/google/callback',
+  posts: '/api/posts'
 }
 
 
