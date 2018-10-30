@@ -3,7 +3,7 @@ const config = require(__base + '/app/config/config');
 
 //success response
 module.exports.success = (request_id, body, res) => {
-  console.log('sucess body');
+  console.log('success body');
   res.status(200).send(body);
 }
 

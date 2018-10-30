@@ -39,32 +39,34 @@ module.exports.login = async (req, res) => {
 module.exports.googleSignUp = async (req, res) => {
 
   try{
-    const {id, provider, emails, photos, name } = req.user.profile;
-    const {url} = req.user;
-    
+    const {id, provider, emails, name, photos} = req.user.profile;
+
     const user = {
-      id,
+      google_id: id,
       first_name: name.givenName,
       last_name : name.familyName,
-      email: emails[0].value
+      email: emails[0].value,
+      profile_pic : photos[0].value
     }
 
     await signUpModule.init(req.request_id, user);
-    
-    //await signUpModule.validation(req.request_id, user);
-    
+
     const isUser = await signUpModule.checkIfUserExists(req.request_id, user);
 
     if(!isUser){
-      console.log('creating new user');
-      await signUpModule.insertIntoUsersTable(req.request_id, user);
+      let useremail = await signUpModule.insertIntoUsersTable(req.request_id, user);
+      console.log("Sucessfully added", useremail)
+    }
+    else{
+      res.send("User already exists");
     }
     
     let token = await signUpModule.generateToken(req.request_id, user); 
     response.success(req.request_id, {token: token}, res);
 
     res.send('Success login');
-  } catch(e) {
+  } 
+  catch(e) {
     response.failure(req.request_id, e, res);
   }
   

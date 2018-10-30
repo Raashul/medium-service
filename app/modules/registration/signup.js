@@ -7,8 +7,6 @@ const config = require(__base + '/app/config/config');
 
 module.exports.init = (request_id, data) => {
   return new Promise((resolve, reject) => {
-
-    //TODO: determine what data is needed
     if(data.email){
       resolve();
     }
@@ -21,7 +19,7 @@ module.exports.init = (request_id, data) => {
 
 module.exports.checkIfUserExists = (request_id, data) => {
   return new Promise(async (resolve, reject) => {
-    const queryString = "SELECT email FROM users WHERE email = ?;";
+    const queryString = "SELECT * FROM users WHERE email = ?;";
     try{
       let result = await mysql.query(queryString, [data.email]);
       if(result.length == 0){
@@ -31,7 +29,6 @@ module.exports.checkIfUserExists = (request_id, data) => {
         resolve(true);
       }
     } catch(e){
-      console.log(e.message);
       reject({ code: 102, message: e.message });
 
     }
@@ -41,16 +38,11 @@ module.exports.checkIfUserExists = (request_id, data) => {
 module.exports.insertIntoUsersTable = (request_id, body) => {
   return new Promise( async (resolve, reject) => {
     const queryString = 'INSERT INTO users SET ?;';
-    const queryBody = {
-      id: 10,
-      email: 'rashul1996@gmail.com'
-    }
     try{
-      let result = await mysql.query(queryString, [queryBody]);
-      console.log(result);
-      if(result[1].affectedRows == 1){
-        resolve(queryBody.email);
-        console.log('added user with email ', queryBody.email);
+      let result = await mysql.query(queryString, [body]);
+      if(result.affectedRows == 1){
+        resolve(body.email);
+        console.log('added user with email ', body.email);
       }
       else {
         reject({ code: 103.4, message: 'Failure to insert.' })
@@ -58,7 +50,6 @@ module.exports.insertIntoUsersTable = (request_id, body) => {
     } catch (e) {
       reject({ code: 102, message: { message: e.message, stack: e.stack } });
     }
-    
   })
 }
 
@@ -77,7 +68,6 @@ module.exports.generateToken = async (request_id, result) => {
 
       let token = await jwt.sign(payload, config.jwt.cert);
       resolve(token);
-
     } catch(e){
       reject({ code: 102, message: { message: e.message } });
     }
