@@ -8,11 +8,11 @@ module.exports.createPost = async (req, res) => {
     try{
         let success = await createPosts.createPost(body);
         if (success.affectedRows == 1){
-            let result = {statusCode:200, description:"Post was sucessfully added"};
+            let result = {code:200, message:"Post was sucessfully added"};
             res.json(result);
         }
         else{
-            result = {statusCode:500, description:"Opps! Something went wrong"};
+            result = {code:500, message:"Opps! Something went wrong"};
             res.json(result)
         }
     } catch(e){

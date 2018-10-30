@@ -5,6 +5,32 @@ const jwt = require('jsonwebtoken');
 const mysql = require(__base + '/app/modules/common/mysql');
 const config = require(__base + '/app/config/config');
 
+
+//Local Init Strategy for Signup
+module.exports.initlocal = (request_id, data) => {
+  return new Promise((resolve, reject) => {
+    if (data.email == "" || data.password == "" || data.confirmPassword == ""){
+      resolve(false);
+    }
+    else{
+      resolve(true);
+    }
+  })
+}
+
+//Local Strategy for password check
+module.exports.passwordcheck = (request_id, data)=> {
+  return new Promise((resolve, reject) => {
+    if(data.password == data.confirmPassword){
+      resolve(true);
+    }
+    else{
+      resolve(false);
+    }
+  })
+}
+
+// Google Strategy for Signup
 module.exports.init = (request_id, data) => {
   return new Promise((resolve, reject) => {
     if(data.email){
@@ -15,7 +41,6 @@ module.exports.init = (request_id, data) => {
     }
   })
 }
-
 
 module.exports.checkIfUserExists = (request_id, data) => {
   return new Promise(async (resolve, reject) => {

@@ -3,12 +3,17 @@
 const passport = require('passport');
 const route = require(__base + '/app/routes/config/constants');
 const profile = require(__base + '/app/handlers/profile');
+const signup = require(__base + '/app/handlers/signup');
 const registration = require(__base + '/app/handlers/registration');
 const auth = require(__base + '/app/init/auth');
 const authorization = require(__base + '/app/routes/config/authorization');
 const posts = require(__base + '/app/handlers/post');
 
 exports = module.exports = (app) => {
+
+  //LocalStrategy to Signup into the medium-client
+  app.route(route.signup)
+     .post(signup.sign)
 
   // google registration
   app.get(route.googleSignUp, passport.authenticate('google', {
