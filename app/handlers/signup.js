@@ -11,9 +11,10 @@ module.exports.sign = async(req, res) => {
         if (passwordcheck) {
             let userexist = await signup.checkIfUserExists(req.request_id,user);
             if (!userexist){
-                const querybody = {
+                let hashpassword = await signup.hashpassword(req.request_id, user.password);
+                let querybody = {
                     email: user.email,
-                    password: user.password
+                    password: hashpassword
                 }
                 let result = await signup.insertIntoUsersTable(req.request_id, querybody);
                 res.send({status:200, message:`Added user with result email address`});

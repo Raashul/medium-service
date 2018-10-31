@@ -13,7 +13,7 @@ exports = module.exports = (app) => {
 
   //LocalStrategy to Signup into the medium-client
   app.route(route.signup)
-     .post(signup.sign)
+    .post(signup.sign);
 
   // google registration
   app.get(route.googleSignUp, passport.authenticate('google', {

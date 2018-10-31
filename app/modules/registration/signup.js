@@ -4,6 +4,7 @@ const jwt = require('jsonwebtoken');
 
 const mysql = require(__base + '/app/modules/common/mysql');
 const config = require(__base + '/app/config/config');
+const bcrypt = require('bcryptjs');
 
 
 //Local Init Strategy for Signup
@@ -65,6 +66,7 @@ module.exports.insertIntoUsersTable = (request_id, body) => {
     const queryString = 'INSERT INTO users SET ?;';
     try{
       let result = await mysql.query(queryString, [body]);
+      console.log(result);
       if(result.affectedRows == 1){
         resolve(body.email);
         console.log('added user with email ', body.email);
@@ -75,6 +77,20 @@ module.exports.insertIntoUsersTable = (request_id, body) => {
     } catch (e) {
       reject({ code: 102, message: { message: e.message, stack: e.stack } });
     }
+  })
+}
+
+//hashing the password for the manual entering of the user 
+module.exports.hashpassword = async(request_id, password) => {
+  console.log(password);
+  return new Promise((resolve, reject) =>{
+    bcrypt.genSalt(10, (err, salt)=> {
+      if (err) reject({status:102, message:"Internal Server error"});
+      bcrypt.hash(password, salt, (err, hash) => {
+        if (err) reject({status:102, message:"Internal Server error"});
+        resolve(hash);
+      })
+    })
   })
 }
 
