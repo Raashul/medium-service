@@ -13,7 +13,7 @@ module.exports.query = (query, values) => {
         reject(err);
       } 
       else {
-        console.log(mysql.format(query,values));
+        console.log("Printing form mysql file ", mysql.format(query,values));
         const sql = mysql.format(query, values);
         const database_call = connection.query(sql, function(error, results, fields){
           connection.release();
@@ -22,7 +22,6 @@ module.exports.query = (query, values) => {
           resolve(results);
         })
       }
-
     })
   })
 }

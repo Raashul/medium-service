@@ -1,10 +1,16 @@
 'use strict';
 
 const mysql = require(__base + '/app/modules/common/mysql');
+const LocalStrategy = require('passport-local').Strategy;
+
+module.exports.locallogin = (request, data) => {
+  passport.authenticate('l({
+    email 
+  }))
+}
 
 module.exports.init = (request_id, data) => {
   return new Promise((resolve, reject) => {
-    //TODO: determine what data is needed
     if(data.email){
       resolve();
     }
@@ -13,7 +19,6 @@ module.exports.init = (request_id, data) => {
     }
   })
 }
-
 
 module.exports.verify = (request_id, data) => {
   return new Promise(async (resolve, reject) => {

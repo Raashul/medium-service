@@ -8,6 +8,7 @@ const registration = require(__base + '/app/handlers/registration');
 const auth = require(__base + '/app/init/auth');
 const authorization = require(__base + '/app/routes/config/authorization');
 const posts = require(__base + '/app/handlers/post');
+const login = require(__base + '/app/handlers/login');
 
 exports = module.exports = (app) => {
 
@@ -21,6 +22,10 @@ exports = module.exports = (app) => {
   }));
   
   app.get(route.googleCallback, passport.authenticate('google', {failureRedirect: '/'}), registration.googleSignUp)
+
+  //login route 
+  app.route(route.login)
+    .post(login.locallogin)
 
   //profile route
   app.route(route.profile)

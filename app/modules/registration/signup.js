@@ -82,7 +82,6 @@ module.exports.insertIntoUsersTable = (request_id, body) => {
 
 //hashing the password for the manual entering of the user 
 module.exports.hashpassword = async(request_id, password) => {
-  console.log(password);
   return new Promise((resolve, reject) =>{
     bcrypt.genSalt(10, (err, salt)=> {
       if (err) reject({status:102, message:"Internal Server error"});
