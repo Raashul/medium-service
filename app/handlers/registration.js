@@ -14,7 +14,6 @@ module.exports.signup = async (req, res) => {
     await signUpModule.insertIntoUsersTable(req.request_id, body);
     response.success(req.request_id, body, res);
     //do stuff here for response
-
   } catch(e){
     console.log('error', e);
   }
