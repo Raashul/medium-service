@@ -4,7 +4,9 @@ const getPosts = require(__base + '/app/modules/posts/getpost.js');
 const createPosts = require(__base + '/app/modules/posts/createpost.js');
 
 module.exports.createPost = async (req, res) => {
-    const body = req.body
+    const body = req.body;
+    console.log(req.authInfo)
+    body.user_id = req.authInfo.tokenData.id;
     try{
         let success = await createPosts.createPost(body);
         if (success.affectedRows == 1){
@@ -21,6 +23,7 @@ module.exports.createPost = async (req, res) => {
   }
 
   module.exports.getPost = async (req, res)  => {
+      console.log(req.authInfo);
       try {
           let post = await getPosts.getPost(5);
           const postObj = { title: post.title, body: post.body, images: post.images, likes: post.likes, post_date: post.post_date,

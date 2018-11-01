@@ -3,12 +3,6 @@
 const mysql = require(__base + '/app/modules/common/mysql');
 const LocalStrategy = require('passport-local').Strategy;
 
-module.exports.locallogin = (request, data) => {
-  passport.authenticate('l({
-    email 
-  }))
-}
-
 module.exports.init = (request_id, data) => {
   return new Promise((resolve, reject) => {
     if(data.email){

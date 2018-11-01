@@ -98,6 +98,7 @@ module.exports.hashpassword = async(request_id, password) => {
 module.exports.generateToken = async (request_id, result) => {
   return new Promise (async (resolve, reject) => {
     try {
+      console.log(result)
       let payload = {
         id: result.id,
         first_name: result.first_name,
