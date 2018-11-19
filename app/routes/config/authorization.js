@@ -10,6 +10,7 @@ module.exports.authCheck = async (req, res, next) => {
     const token = req.headers.authorization;
     const authInfo = await authenticateToken(req.request_id, token);
     req.authInfo = authInfo;
+    return next();
   } catch(e) {
     response.failure(req.request_id, e, res);
   }
@@ -28,6 +29,7 @@ function authenticateToken(request_id, token) {
             token,
             tokenData: decoded
           }
+          console.log('resolved token');
           resolve(authInfo);
         }
       })

@@ -32,7 +32,7 @@ exports = module.exports = (app) => {
 
 
   //test
-  app.get('/api/test', authorization.authCheck, (req,res) => res.send('success'))
+  app.get('/api/test', authorization.authCheck, (req,res) => console.log('sadas'))
     
 
 }
