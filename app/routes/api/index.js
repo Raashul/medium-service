@@ -38,9 +38,9 @@ exports = module.exports = (app) => {
 
 
   //For the posts
-    app.route(route.posts)
-      .get(posts.getPost)
-      .post(authorization.authCheck, posts.createPost)
+  app.route(route.posts)
+    .get(posts.getPost)
+    .post(authorization.authCheck, posts.createPost)
 
 }
 
