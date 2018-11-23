@@ -3,6 +3,7 @@
 const infoModules = require(__base + "/app/modules/profile/info");
 
 module.exports.getInfo = async function(req, res) {
+  console.log("inside profile");
   try {
     let profileInfo = await infoModules.details(2);
     console.log("profileInfo", profileInfo);

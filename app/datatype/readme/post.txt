@@ -1,0 +1,14 @@
+Creating a post requirements
+-username
+-id
+-title
+-body
+-default likes (set 0)
+-comments(not now)
+-Style(discuss how to deal with this)
+-profile link
+-short url
+-main url
+-date
+
+
