@@ -29,12 +29,6 @@ exports = module.exports = (app) => {
   //home route
   app.route(route.home)
     .get((req, res) => res.send("test success"))
-
-
-  //test
-  app.get('/api/test', authorization.authCheck, (req,res) => console.log('sadas'))
-    
-
 }
 
 
