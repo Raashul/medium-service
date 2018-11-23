@@ -1,20 +1,18 @@
-'use strict';
+"use strict";
 
-const infoModules = require(__base + '/app/modules/profile/info')
+const infoModules = require(__base + "/app/modules/profile/info");
 
-module.exports.getInfo = async function(req, res){
- 
+module.exports.getInfo = async function(req, res) {
   try {
-
     let profileInfo = await infoModules.details(2);
-    console.log('profileInfo', profileInfo);
-    
-    const test  = {first_name: profileInfo.first_name, last_name: profileInfo.last_name}
-    res.json(test);
-    
+    console.log("profileInfo", profileInfo);
 
-  } catch(e){
+    const test = {
+      first_name: profileInfo.first_name,
+      last_name: profileInfo.last_name
+    };
+    res.json(test);
+  } catch (e) {
     console.log(e);
   }
-
-}
+};
