@@ -5,12 +5,16 @@ const createPosts = require(__base + '/app/modules/posts/createpost.js');
 
 module.exports.createPost = async (req, res) => {
 	const body = req.body;
-	console.log(req.authInfo)
 	body.user_id = req.authInfo.tokenData.id;
 	try{
+
 		await createPosts.validation(req.request_id, body);
-		
-		let success = await createPosts.createPost(body);
+
+		//check if duplicate post exists
+
+		//insert into posts table
+		let success = await createPosts.post(req.request_id, body, body.user_id);
+
 		if (success.affectedRows == 1){
 			let result = {code:200, message:"Post was sucessfully added"};
 			res.json(result);
