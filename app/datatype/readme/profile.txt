@@ -1,2 +1,14 @@
-query for profile page -- v0.0.1
+# Information about the posts database. 
+
+TableName : posts 
+Fields: post_id INT 
+        title VARCHAR(225) 
+        body TEXT
+        images VARCHAR(255) 
+        likes INT
+        post_date TIMESTAMP (Always pass null in the post_date and update_date)
+        update_date TIMESTAMP
+        user_id INT FOREIGN KEY (user_id) REFERENCES users(id)
+
+Api - GET - /api/posts
 

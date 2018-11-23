@@ -9,6 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "bcryptjs": "^2.4.3",
     "body-parser": "^1.18.3",
     "cuid": "^2.1.4",
     "dotenv": "^6.1.0",
@@ -19,6 +20,7 @@
     "nodemon": "^1.18.4",
     "passport": "^0.4.0",
     "passport-google-oauth": "^1.0.0",
+    "passport-local": "^1.0.0",
     "uuid": "^3.3.2",
     "uuid-v4": "^0.1.0"
   }

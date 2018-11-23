@@ -27,7 +27,8 @@ function authenticateToken(request_id, token) {
         else {
           const authInfo = {
             token,
-            tokenData: decoded
+            tokenData: decoded,
+            
           }
           console.log('resolved token');
           resolve(authInfo);

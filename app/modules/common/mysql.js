@@ -7,20 +7,21 @@ const DBPool = require(__base + '/app/init/mysql').getDBPOOL;
 module.exports.query = (query, values) => {
   return new Promise( (resolve, reject) => {
     DBPool().getConnection(function(err, connection){
+
       if(err){
-        //connection.release();
         console.log(err);
         reject(err);
-      } else {
+      } 
+      else {
+        console.log("Printing form mysql file ", mysql.format(query,values));
         const sql = mysql.format(query, values);
         const database_call = connection.query(sql, function(error, results, fields){
           connection.release();
+          console.log(error);
           if(error) reject(error);
-          console.log(results);
           resolve(results);
         })
       }
-
     })
   })
 }

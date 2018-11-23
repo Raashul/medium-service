@@ -8,7 +8,7 @@ const DBPool = mysql.createPool({
   user: config.mysql.db_username,
   password: config.mysql.db_password,
   database: config.mysql.db_database,
-  //port: config.mysql.db_port,
+  port: config.mysql.db_port,
   connectionLimit: 10 //change this
 })
 
