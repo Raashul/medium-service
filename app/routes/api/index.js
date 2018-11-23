@@ -31,12 +31,6 @@ exports = module.exports = (app) => {
   app.route(route.profile)
     .get(authorization.authCheck, profile.getInfo)
 
-  app.get('/api/test', authorization.authCheck, (req,res) => res.json({
-    message:"sucess",
-    data: req.authInfo
-  }))
-
-
   //For the posts
   app.route(route.posts)
     .get(posts.getPost)
