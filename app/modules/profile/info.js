@@ -20,3 +20,7 @@ module.exports.details = (user_id) => {
     }
   });
 };
+
+
+//get bookmark
+

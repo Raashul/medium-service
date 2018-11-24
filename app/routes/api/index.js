@@ -9,6 +9,7 @@ const auth = require(__base + '/app/init/auth');
 const authorization = require(__base + '/app/routes/config/authorization');
 const posts = require(__base + '/app/handlers/post');
 const login = require(__base + '/app/handlers/login');
+const home = require(__base + '/app/handlers/home');
 
 exports = module.exports = (app) => {
 
@@ -32,16 +33,19 @@ exports = module.exports = (app) => {
     .get(authorization.authCheck, profile.getInfo)
 
 
-  //home route
   app.route(route.home)
-    .get((req, res) => res.send("test success"))
-
+    .get(home.getHome)
 
   //For the posts
   app.route(route.posts)
   .get(posts.getPost)
   .post(authorization.authCheck, posts.createPost)
-  
+
+  //bookmark routes
+  app.route(route.bookmark)
+    //.get(authorization.authCheck, profile.getBookmarks)
+    .post(authorization.authCheck, profile.setBookmark)
+
 }
 
 

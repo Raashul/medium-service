@@ -33,17 +33,19 @@ module.exports.login = async (req, res) => {
   }
 }
 
+
+
 module.exports.googleSignUp = async (req, res) => {
 
   try{
     const {id, provider, emails, name, photos} = req.user.profile;
 
     const user = {
-      google_id: id,
+      user_id: id,
       first_name: name.givenName,
       last_name : name.familyName,
       email: emails[0].value,
-      profile_pic : photos[0].value
+      //profile_pic : photos[0].value
     }
 
     await signUpModule.init(req.request_id, user);
@@ -51,8 +53,11 @@ module.exports.googleSignUp = async (req, res) => {
     const isUser = await signUpModule.checkIfUserExists(req.request_id, user);
 
     if(!isUser){
-      let useremail = await signUpModule.insertIntoUsersTable(req.request_id, user);
-      console.log("Sucessfully added", useremail)
+      await signUpModule.insertIntoUsersTable(req.request_id, user);
+
+      //insert into profile table
+      //await signUpModule.insertIntoProfileTable(req.request_id, user);
+
     }
     else{
       res.send("User already exists");

@@ -7,7 +7,8 @@ const routes = {
   home: '/api/home',
   googleSignUp: '/auth/google',
   googleCallback: '/auth/google/callback',
-  posts: '/api/posts'
+  posts: '/api/posts',
+  bookmark: '/api/bookmark'
 }
 
 

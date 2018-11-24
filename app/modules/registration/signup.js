@@ -1,7 +1,7 @@
 'use strict';
 
 const jwt = require('jsonwebtoken');
-
+const uuid = require('uuid/v4');
 const mysql = require(__base + '/app/modules/common/mysql');
 const config = require(__base + '/app/config/config');
 const bcrypt = require('bcryptjs');
@@ -64,9 +64,44 @@ module.exports.checkIfUserExists = (request_id, data) => {
 module.exports.insertIntoUsersTable = (request_id, body) => {
   return new Promise( async (resolve, reject) => {
     const queryString = 'INSERT INTO users SET ?;';
+    const { first_name, last_name, email, user_id } = body;
+    const queryBody = {
+      user_id,
+      first_name,
+      last_name,
+      email,
+      bookmark_id: uuid()
+    }
     try{
-      let result = await mysql.query(queryString, [body]);
+      let result = await mysql.query(queryString, [queryBody]);
       console.log(result);
+      if(result.affectedRows == 1){
+        resolve(body.email);
+      }
+      else {
+        reject({ code: 103.4, message: 'Failure to insert.' })
+      }
+    } catch (e) {
+      reject({ code: 102, message: { message: e.message, stack: e.stack } });
+    }
+  })
+}
+
+//insert into profile table
+module.exports.insertIntoProfileTable = (request_id, body) => {
+  return new Promise( async (resolve, reject) => {
+    const queryString = 'INSERT INTO profile SET ?;';
+    const { first_name, last_name, email, user_id } = body;
+    const queryBody = {
+      user_id,
+      first_name,
+      last_name,
+      email,
+      bookmark_id : uuid()
+    }
+
+    try{
+      let result = await mysql.query(queryString, [queryBody]);
       if(result.affectedRows == 1){
         resolve(body.email);
         console.log('added user with email ', body.email);
