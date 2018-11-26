@@ -8,7 +8,7 @@ const routes = {
   googleSignUp: "/auth/google",
   googleCallback: "/auth/google/callback",
   posts: "/api/posts",
-  clap: "/api/clap/:post_id"
+  clap: "/api/clap"
 };
 
 module.exports = routes;

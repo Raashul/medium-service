@@ -50,5 +50,5 @@ exports = module.exports = app => {
     .post(authorization.authCheck, posts.createPost);
 
   // ---------- Clapping the post  ------------------ //
-  app.route(route.clap).get(authorization.authCheck, clap.increaseLikes);
+  app.route(route.clap).put(authorization.authCheck, clap.increaseClaps);
 };
