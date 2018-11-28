@@ -13,7 +13,6 @@ module.exports.validation =(request_id, body) => {
 }
 
 module.exports.addBookmark = (request_id, body) => {
-  console.log('adding');
   return new Promise( async (resolve, reject) => {
     const { post_id, user_id } = body;
     const query =  'INSERT INTO bookmarks SET ?;'
@@ -33,3 +32,5 @@ module.exports.addBookmark = (request_id, body) => {
 
   })
 }
+
+
