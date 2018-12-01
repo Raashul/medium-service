@@ -9,10 +9,16 @@ const bcrypt = require("bcryptjs");
 //Local Init Strategy for Signup
 module.exports.initlocal = (request_id, data) => {
   return new Promise((resolve, reject) => {
-    if (data.email == "" || data.password == "" || data.confirmPassword == "") {
-      resolve(false);
+    if (
+      !data.email == "" ||
+      !data.password == "" ||
+      !data.confirmPassword == ""
+    ) {
+      resolve();
     } else {
-      resolve(true);
+      reject({
+        error: { code: "400", message: "Missing required attributes" }
+      });
     }
   });
 };
@@ -21,9 +27,9 @@ module.exports.initlocal = (request_id, data) => {
 module.exports.passwordcheck = (request_id, data) => {
   return new Promise((resolve, reject) => {
     if (data.password == data.confirmPassword) {
-      resolve(true);
+      resolve();
     } else {
-      resolve(false);
+      reject({ error: { code: "400", message: "Password mistmatch error" } });
     }
   });
 };
@@ -45,12 +51,12 @@ module.exports.checkIfUserExists = (request_id, data) => {
     try {
       let result = await mysql.query(queryString, [data.email]);
       if (result.length == 0) {
-        resolve(false);
+        resolve();
       } else {
-        resolve(true);
+        reject({ error: { code: 400, message: "User Already Exists" } });
       }
     } catch (e) {
-      reject({ code: 102, message: e.message });
+      reject({ error: { code: 102, message: e.message } });
     }
   });
 };
@@ -60,15 +66,14 @@ module.exports.insertIntoUsersTable = (request_id, body) => {
     const queryString = "INSERT INTO users SET ?;";
     try {
       let result = await mysql.query(queryString, [body]);
-      console.log(result);
       if (result.affectedRows == 1) {
         resolve(body.email);
         console.log("added user with email ", body.email);
       } else {
-        reject({ code: 103.4, message: "Failure to insert." });
+        reject({ error: { code: 103.4, message: "Failure to insert." } });
       }
     } catch (e) {
-      reject({ code: 102, message: { message: e.message, stack: e.stack } });
+      reject({ error: { code: 102, message: e.message } });
     }
   });
 };
@@ -77,9 +82,11 @@ module.exports.insertIntoUsersTable = (request_id, body) => {
 module.exports.hashpassword = async (request_id, password) => {
   return new Promise((resolve, reject) => {
     bcrypt.genSalt(10, (err, salt) => {
-      if (err) reject({ status: 102, message: "Internal Server error" });
+      if (err)
+        reject({ error: { status: 500, message: "Internal Server error" } });
       bcrypt.hash(password, salt, (err, hash) => {
-        if (err) reject({ status: 102, message: "Internal Server error" });
+        if (err)
+          reject({ error: { status: 500, message: "Internal Server error" } });
         resolve(hash);
       });
     });

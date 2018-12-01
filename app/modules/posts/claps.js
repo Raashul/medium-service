@@ -33,7 +33,7 @@ module.exports.increaseClaps = data => {
       if (result.changedRows == 1) {
         resolve(data.likes + 1);
       } else {
-        reject({ error: "Oops something went wrong." });
+        reject({ error: { code: 500, error: "Internal Server Error" } });
       }
     } catch (e) {
       reject(e);
