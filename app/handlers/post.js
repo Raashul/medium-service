@@ -31,7 +31,7 @@ module.exports.createPost = async (req, res) => {
 
 module.exports.getPost = async (req, res)  => {
 	try {
-		let post = await getPosts.getPost(5);
+		let post = await getPosts.getPost(`2705ca05-98fb-41d1-8e7f-3e7ee8f2b167`);
 		const postObj = { title: post.title, body: post.body, images: post.images, likes: post.likes, post_date: post.post_date,
 											update_date: post.update_date, user: post.user_id } 
 		res.json(postObj);

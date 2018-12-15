@@ -6,9 +6,11 @@ module.exports.getPost = (post_id) => {
         try {
             console.log(`You are searching the post with id ${post_id}`);
             let result = await mysql.query(query, [post_id]);
+            console.log(result);
             if (result.length == 1){
                 resolve(result[0])
             }
+           
             else{
                 reject({ code: 103, custom_message: 'Conflict with the post_id.' })
             }
